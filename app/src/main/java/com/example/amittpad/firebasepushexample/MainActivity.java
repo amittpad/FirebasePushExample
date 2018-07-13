@@ -6,14 +6,22 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        spinner = findViewById(R.id.spinnerTopics);
         /*
          * If the device is having android oreo we will create a notification channel
          * */
@@ -36,5 +44,15 @@ public class MainActivity extends AppCompatActivity {
          */
         MyNotificationManager.getInstance(this).displayNotification("Greetings", "Hello how are you?");
 
+
+        findViewById(R.id.buttonSubscribe).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String topic = spinner.getSelectedItem().toString();
+                FirebaseMessaging.getInstance().subscribeToTopic(topic);
+                Toast.makeText(getApplicationContext(), "Topic Subscribed", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

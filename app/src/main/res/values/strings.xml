@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FirebasePushExample</string>
+
+    <array name="topics">
+        <item>notifications</item>
+        <item>promotional_messages</item>
+    </array>
 </resources>
